@@ -31,6 +31,7 @@ preserve_http_server_name = true
 preserve_http_headers = ["Content-Type"]  # inferred todo , sepereated or | seperated ?
 disable_connection_keepalive = false      # Keep this in deployment.toml file
 max_message_size_bytes = 81920
+max_open_connections = -1           # inferred default: -1
 
 listener.port = 8280    #inferred  default: 8280
 listener.wsdl_epr_prefix ="$ref{server.hostname}"   # inferred
@@ -77,7 +78,6 @@ blocking_sender.default_connections_per_host = 200
 blocking_sender.omit_soap12_action = true
 blocking_sender.so_timeout = "1m"
 
-# todo proxy profiles
 [[transport.http.proxy_profile]]
 target_hosts = [""]
 proxy_host = ""
@@ -164,13 +164,13 @@ name = "mailto"         # inferred
 [[transport.mail.sender]]
 
 name = "mailto"
-hostname = "smtp.gmail.com"
-port = 587
-enable_tls = true
-auth = true
-username = "demo_user"
-password = "mailpassword"
-from = "demo_user@wso2.com"
+parameter.hostname = "smtp.gmail.com"
+parameter.port = "587"
+parameter.enable_tls = true
+parameter.auth = true
+parameter.username = "demo_user"
+parameter.password = "mailpassword"
+parameter.from = "demo_user@wso2.com"
 
 ###################################     JSM Transport Configurations    ###################################
 [[transport.jms.listener]]
@@ -335,14 +335,12 @@ parameter.exchange_auto_declare = ""
 [transport.ws]
 
 sender.enable = false
-sender.class = "org.wso2.carbon.websocket.transport.WebsocketTransportSender"   # inferred
 sender.parameter.outflow_dispatch_sequence = "outflowDispatchSeq"               # inferred
 sender.parameter.outflow_dispatch_fault_sequence = "outflowFaultSeq"            # inferred
 
 [transport.wss]
 
 sender.enable = false
-sender.class = "org.wso2.carbon.websocket.transport.WebsocketTransportSender"   # inferred
 sender.parameter.outflow_dispatch_sequence = "outflowDispatchSeq"               # inferred
 sender.parameter.outflow_dispatch_fault_sequence = "outflowFaultSeq"            # inferred
 sender.truststore_location = "$ref{truststore.file_name}" # inferred
@@ -386,23 +384,22 @@ sender.enable = false
 [transport.mqtt]
 
 listener.enable = false
-listener.hostname = "$ref{server.hostname}"   # inferred
-listener.connection_factory = "mqttConFactory"                      # todo ? loked=false
-listener.server_port = 1883
-listener.client_id = "client-id-1234"
-listener.topic_name = "esb.test"
+listener.parameter.hostname = "$ref{server.hostname}"   # inferred
+listener.parameter.connection_factory = "mqttConFactory"                      # todo ? loked=false
+listener.parameter.server_port = 1883
+listener.parameter.client_id = "client-id-1234"
+listener.parameter.topic_name = "esb.test"
 
 # not reqired parameter list
-listener.subscription_qos = 0       # 0,1,2
-listener.session_clean = false
-listener.enable_ssl = false
-listener.subscription_username = ""
-listener.subscription_password = ""
-listener.temporary_store_path = ""
-listener.temporary_store_directory = ""
-listener.blocking_sender = false                # todo does blocking sender axis configuration?
-listener.connect_type = "text/plain"
-listener.message_retained = false
+listener.parameter.subscription_qos = 0       # 0,1,2
+listener.parameter.session_clean = false
+listener.parameter.enable_ssl = false
+listener.parameter.subscription_username = ""
+listener.parameter.subscription_password = ""
+listener.parameter.temporary_store_directory = ""
+listener.parameter.blocking_sender = false                # todo does blocking sender axis configuration?
+listener.parameter.connect_type = "text/plain"
+listener.parameter.message_retained = false
 
 sender.enable = false
 
@@ -467,11 +464,11 @@ username = "wso2carbon"
 password = "wso2carbon"
 
 [database.shared_db.pool_options]
-maxActive = "50"
-maxWait = "60000"
-testOnBorrow = true
-validationInterval = "30000"
-defaultAutoCommit = true
+max_active = "50"
+max_wait = "60000"
+test_on_borrow = true
+validation_interval = "30000"
+default_auto_commit = true
 
 ###################################     Keystore configurations     ###################################
 [keystore.tls]

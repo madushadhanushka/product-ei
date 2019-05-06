@@ -26,17 +26,17 @@
     <!--
        Product Name
     -->
-    <Name>${product.name}</Name>
+    <Name>WSO2 Enterprise Integrator</Name>
 
     <!--
        machine readable unique key to identify each product
     -->
-    <ServerKey>${product.key}</ServerKey>
+    <ServerKey>EI</ServerKey>
 
     <!--
        Product Version
     -->
-    <Version>${product.version}</Version>
+    <Version>@product.version@</Version>
 
     <!--
        Host name or IP address of the machine hosting this server
@@ -73,7 +73,9 @@
     Ex : <Role>.*</Role> means this server can act any role
     -->
     <ServerRoles>
-        <Role>${default.server.role}</Role>
+        <Role>EnterpriseIntegrator</Role>
+        <Role>EnterpriseServiceBus</Role>
+        <Role>DataServicesServer</Role>
     </ServerRoles>
 
     <!-- uncommnet this line to subscribe to a bam instance automatically -->

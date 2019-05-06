@@ -277,7 +277,7 @@
     {% if transport.mqtt.listener.enable == true %}
     <transportReceiver name="mqtt" class="org.apache.axis2.transport.mqtt.MqttListener">
         <parameter locked="false" name="mqttConFactory">
-            {% for parameter_key,parameter_value in transport.mqtt.listener.mqttConFactory.parameter.items() %}
+            {% for parameter_key,parameter_value in transport.mqtt.listener.parameter.items() %}
             <parameter locked="false" name="{{parameter_key}}">{{parameter_value}}</parameter>
             {% endfor %}
         </parameter>
@@ -291,21 +291,21 @@
         {% endfor %}
         {% if transport_item.key_store is defined %}
         <parameter name="keystore" locked="false">
-              <KeyStore>
-                    <Location>{{transport_item.keystore.file_name}}</Location>
-                    <Type>{{transport_item.keystore.type}}</Type>
-                    <Password>{{transport_item.keystore.password}}</Password>
-                    <KeyPassword>{{transport_item.keystore.key_password}}</KeyPassword>
-              </KeyStore>
+            <KeyStore>
+                <Location>{{transport_item.keystore.file_name}}</Location>
+                <Type>{{transport_item.keystore.type}}</Type>
+                <Password>{{transport_item.keystore.password}}</Password>
+                <KeyPassword>{{transport_item.keystore.key_password}}</KeyPassword>
+            </KeyStore>
         </parameter>
         {% endif %}
         {% if transport_item.trust_store is defined %}
         <parameter name="truststore" locked="false">
-              <TrustStore>
-                    <Location>{{transport_item.truststore.file_name}}</Location>
-                    <Type>{{transport_item.truststore.type}}</Type>
-                    <Password>{{transport_item.truststore.password}}</Password>
-              </TrustStore>
+            <TrustStore>
+                <Location>{{transport_item.truststore.file_name}}</Location>
+                <Type>{{transport_item.truststore.type}}</Type>
+                <Password>{{transport_item.truststore.password}}</Password>
+            </TrustStore>
         </parameter>
         {% endif %}
         {% if transport_item.ssl_profile.file_path is defined %}
@@ -321,6 +321,7 @@
         {% for parameter_key,parameter_value in transport.tcp.listener.parameter.items() %}
         <parameter name="{{parameter_key}}">{{parameter_value}}</parameter>
         {% endfor %}
+        <parameter name="transport.tcp.contentType">{% for content_item in transport.tcp.listener.content_type %}{{content_item}}{% if loop.index < transport.tcp.listener.content_type|length %},{% endif %}{% endfor %}</parameter>
     </transportReceiver>
     {% endif %}
     {% if transport.udp.listener.enable == true %}
@@ -349,12 +350,18 @@
         <parameter name="proxyProfiles">
             {% for profile in transport.http.proxy_profile %}
             <profile>
-                <targetHosts>{% for hostitem in profile.target_hosts %}{{hostitem}}{% if loop.index < profile.target_hosts|length %},{% endif %}{% endfor %}</targetHosts>
+                <targetHosts>{% for hostitem in profile.target_hosts.toList() %}{{hostitem}}{% if loop.index < profile.target_hosts.toList()|length %},{% endif %}{% endfor %}</targetHosts>
                 <proxyHost>{{profile.proxy_host}}</proxyHost>
                 <proxyPort>{{profile.proxy_port}}</proxyPort>
-                {% if profile.proxy_username is defined %}<proxyUserName>{{profile.proxy_username}}</proxyUserName>{% endif %}
-                {% if profile.proxy_password is defined %}<proxyPassword>{{profile.proxy_password}}</proxyPassword>{% endif %}
-                {% if profile.bypass_hosts is defined %}<bypass>{% for bypassitem in profile.bypass_hosts %}{{bypassitem}}{% if loop.index < profile.bypass_hosts|length %},{% endif %}{% endfor %}</bypass>{% endif %}
+                {% if profile.proxy_username is defined %}
+                <proxyUserName>{{profile.proxy_username}}</proxyUserName>
+                {% endif %}
+                {% if profile.proxy_password is defined %}
+                <proxyPassword>{{profile.proxy_password}}</proxyPassword>
+                {% endif %}
+                {% if profile.bypass_hosts is defined %}
+                <bypass>{% for bypassitem in profile.bypass_hosts.toList() %}{{bypassitem}}{% if loop.index < profile.bypass_hosts.toList()|length %},{% endif %}{% endfor %}</bypass>
+                {% endif %}
             </profile>
             {% endfor %}
         </parameter>
@@ -403,6 +410,7 @@
     </transportSender>
     {% endif %}
     <transportSender name="local" class="org.wso2.carbon.core.transports.local.CarbonLocalTransportSender"/>
+    <transportSender name="local" class="org.apache.axis2.transport.local.NonBlockingLocalTransportSender"/>
     {% if transport.vfs.sender.enable == true %}
     <transportSender name="vfs" class="org.apache.synapse.transport.vfs.VFSTransportSender"/>
     {% endif %}
@@ -439,18 +447,15 @@
         </parameter>
     </transportReceiver>
     {% endif %}
-    {% if transport.mqtt.sender.enable == true %}
-    <transportSender name="mqtt" class="{{transport.mqtt.sender.class}}"/>
-    {% endif %}
     {% if transport.ws.sender.enable == true %}
-    <transportSender name="ws" class="{{transport.ws.sender.class}}">
+    <transportSender name="ws" class="org.wso2.carbon.websocket.transport.WebsocketTransportSender">
         {% for name,value in transport.ws.sender.parameter.items() %}
         <parameter name="{{name}}" locked="false">{{value}}</parameter>
         {% endfor %}
     </transportSender>
     {% endif %}
     {% if transport.wss.sender.enable == true %}
-    <transportSender name="wss" class="{{transport.wss.sender.class}}">
+    <transportSender name="wss" class="org.wso2.carbon.websocket.transport.WebsocketTransportSender">
         {% for name,value in transport.wss.sender.parameter.items() %}
         <parameter name="{{name}}" locked="false">{{value}}</parameter>
         {% endfor %}

@@ -38,14 +38,12 @@
   },
   "transport.ws.sender.enable": {
     "true": {
-      "transport.ws.sender.class": "org.wso2.carbon.websocket.transport.WebsocketTransportSender",
       "transport.ws.sender.parameter.outflow_dispatch_sequence": "outflowDispatchSeq",
       "transport.ws.sender.parameter.outflow_dispatch_fault_sequence": "outflowFaultSeq"
     }
   },
   "transport.wss.sender.enable": {
     "true": {
-      "transport.wss.sender.class": "org.wso2.carbon.websocket.transport.WebsocketTransportSender",
       "transport.wss.sender.parameter.outflow_dispatch_sequence": "outflowDispatchSeq",
       "transport.wss.sender.parameter.outflow_dispatch_fault_sequence": "outflowFaultSeq",
       "transport.wss.sender.truststore_location": "$ref{truststore.file_name}",
