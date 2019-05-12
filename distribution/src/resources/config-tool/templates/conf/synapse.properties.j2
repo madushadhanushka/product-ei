@@ -26,3 +26,9 @@
 {{property}} = {{value}}
 {% endfor %}
 synapse.sal.endpoints.sesssion.timeout.default=600000
+synapse.observers=org.wso2.carbon.mediation.dependency.mgt.DependencyTracker
+synapse.carbon.ext.tenant.info=org.wso2.carbon.mediation.initializer.handler.CarbonTenantInfoConfigurator
+synapse.carbon.ext.tenant.info.initiator=org.wso2.carbon.mediation.initializer.handler.CarbonTenantInfoInitiator
+synapse.xpath.func.extensions=org.wso2.carbon.mediation.security.vault.xpath.SecureVaultLookupXPathFunctionProvider
+mediation.flow.statistics.event.consume.interval=1000
+mediation.flow.statistics.event.clean.interval=15000

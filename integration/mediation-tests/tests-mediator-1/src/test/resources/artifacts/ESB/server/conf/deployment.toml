@@ -23,6 +23,7 @@ url="jdbc:h2:./repository/database/WSO2SHARED_DB;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIM
 username = "wso2carbon"
 password = "wso2carbon"
 
+
 [[transport.jms.listener]]
 name = "myTopicConnectionFactory"
 parameter.initial_naming_factory = "org.apache.activemq.jndi.ActiveMQInitialContextFactory"
@@ -45,59 +46,8 @@ parameter.connection_factory_name = "QueueConnectionFactory"
 parameter.connection_factory_type = "queue"
 
 [[transport.jms.sender]]
-name = "myQueueConnectionFactory2"
+name = "default"
 parameter.initial_naming_factory = "org.apache.activemq.jndi.ActiveMQInitialContextFactory"
 parameter.provider_url = "tcp://localhost:61616"
 parameter.connection_factory_name = "QueueConnectionFactory"
 parameter.connection_factory_type = "queue"
-parameter.destination = "dynamicQueues/StaleConnectionTest"
-parameter.destination_type = "queue"
-parameter.cache_level = "connection"
-
-[transport.mail.listener]
-enable = true
-
-[[transport.mail.sender]]
-name = "mailto"
-parameter.hostname = "localhost"
-parameter.port = "3025"
-parameter.enable_tls = true
-parameter.auth = true
-parameter.username = "wso2"
-parameter.password = "wso2"
-parameter.from = "wso2@localhost"
-parameter.'transport.mail.SMTPBccAddresses' = "wso2bcc@localhost"
-
-[[transport.mail.sender]]
-name = "mailtoWSO2"
-parameter.hostname = "localhost"
-parameter.port = "3025"
-parameter.enable_tls = true
-parameter.auth = true
-parameter.username = "wso2_secondary"
-parameter.password = "wso2_secondary"
-parameter.from = "wso2_secondary@localhost"
-
-[transport.ws]
-sender.enable = true
-
-[transport.mqtt]
-listener.enable = true
-listener.parameter.client_id = "client-id-1234"
-listener.parameter.connection_factory = "mqttConFactory"   
-listener.parameter.hostname = "localhost"   # inferred
-listener.parameter.server_port = 1883
-listener.parameter.topic_name = "esb.test"
-sender.enable = true
-
-
-[transport.tcp]
-listener.enable = true
-listener.port = "8290"
-listener.content_type = ["application/soap+xml"]
-sender.enable = true
-
-
-
-
-

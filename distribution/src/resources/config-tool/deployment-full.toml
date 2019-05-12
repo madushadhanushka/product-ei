@@ -30,8 +30,11 @@ preserve_http_user_agent = false
 preserve_http_server_name = true
 preserve_http_headers = ["Content-Type"]  # inferred todo , sepereated or | seperated ?
 disable_connection_keepalive = false      # Keep this in deployment.toml file
+enable_message_size_validation = false
 max_message_size_bytes = 81920
 max_open_connections = -1           # inferred default: -1
+force_xml_validation = false
+force_json_validation = false
 
 listener.port = 8280    #inferred  default: 8280
 listener.wsdl_epr_prefix ="$ref{server.hostname}"   # inferred
@@ -59,6 +62,7 @@ sender.warn_on_http_500 = "*"       # optional
 sender.proxy_host = "$ref{server.hostname}"         # todo need to template for both blocking/nonblocking axis.xml
 sender.proxy_port = 3128
 sender.non_proxy_hosts = ["$ref{server.hostname}"]      # todo ref in array not working
+sender.hostname_verifier = "AllowAll"
 
 sender.keystore.file_name ="$ref{keystore.tls.file_name}" # inferred
 sender.keystore.type = "$ref{keystore.tls.type}" # inferred
@@ -218,6 +222,7 @@ parameter.consume_error_progression = "2.0"
 
 [[transport.jms.sender]]
 
+enable = true               # todo ? not templated
 name = "myTopicSender"
 parameter.initial_naming_factory = "org.apache.activemq.artemis.jndi.ActiveMQInitialContextFactory"
 parameter.broker_name = "artemis"
@@ -418,7 +423,6 @@ synapse.max_threads = 100
 synapse.threads_queue_length = 10
 
 synapse.global_timeout_interval = "120000ms"
-synapse.preserve_namespace_on_xml_to_json=false
 
 # Uncomment following to support fallback XPATH 2.0 support with DOM and Saxon
 synapse.enable_xpath_dom_failover=true
@@ -430,6 +434,14 @@ synapse.event_debugger_port=9006
 
 # Script Mediator Pool (impatcts only external scripts)
 synapse.script_mediator_pool_size=15
+synapse.enable_xml_nil=false
+synapse.disable_auto_primitive_regex = "^-?(0|[1-9][0-9]*)(\\.[0-9]+)?([eE][+-]?[0-9]+)?$"
+synapse.disable_custom_replace_regex = "@@@"
+synapse.enable_namespace_declaration = false
+synapse.build_valid_nc_name = false
+synapse.enable_auto_primitive = false
+synapse.json_out_auto_array = false
+synapse.preserve_namespace_on_xml_to_json=false
 
 # Configuration to enable mediation flow analytics
 flow.statistics.enable=false
@@ -450,7 +462,7 @@ inbound.max_threads = 100
 members = ["10.100.5.86:4000","10.100.5.86:4001"]
 local_member_port = 4000
 local_member_host = "10.100.5.86"
-membership_scheme =  'wka'      # inferred
+membership_scheme =  'wka'      # type 0
 domain = "wso2.carbon.domain"   # inferred
 
 [user_store]
@@ -484,3 +496,9 @@ type = "JKS"                        # infered
 password = "wso2carbon"             # infered
 alias = "symmetric.key.value"       # infered
 algorithm = "AES"                   # infered
+
+##################################### Hidden properties             ###################################
+
+[[server.get_request_processor]]    # hidden property
+item = "swagger.json"
+class = "org.wso2.appcloud.api.swagger.processors.json.SwaggerJsonProcessor"

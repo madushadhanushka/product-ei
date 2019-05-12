@@ -637,6 +637,12 @@
             <Item>xsd</Item>
             <Class>org.wso2.carbon.core.transports.util.XsdProcessor</Class>
         </Processor>
+        {% for processor_item in server.get_request_processor %}
+        <Processor>
+            <Item>{{processor_item.item}}</Item>
+            <Class>{{processor_item.class}}</Class>
+        </Processor>
+        {% endfor %}
     </HttpGetRequestProcessors>
 
     <!-- Deployment Synchronizer Configuration. Enable value to true when running with "svn based" dep sync.

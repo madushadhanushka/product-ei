@@ -160,7 +160,7 @@
     },
     {
       "content_type": "application/json",
-      "class": "org.apache.synapse.commons.json.JsonStreamBuilder"
+      "class": "org.wso2.carbon.integrator.core.json.JsonStreamBuilder"
     },
     {
       "content_type": "application/json/badgerfish",

@@ -12,6 +12,14 @@
   "mediation.synapse.command_debugger_port": "synapse_properties.'synapse.debugger.port.command'",
   "mediation.synapse.event_debugger_port": "synapse_properties.'synapse.debugger.port.event'",
   "mediation.synapse.script_mediator_pool_size": "synapse_properties.'synapse.script.mediator.pool.size'",
+  "mediation.synapse.enable_xml_nil": "synapse_properties.'synapse.commons.enableXmlNilReadWrite'",
+  "mediation.synapse.disable_auto_primitive_regex":"synapse_properties.'synapse.commons.json.json.output.disableAutoPrimitive.regex'",
+  "mediation.synapse.disable_custom_replace_regex": "synapse_properties.'synapse.commons.json.json.output.disableAutoPrimitive.customReplaceRegex'",
+  "mediation.synapse.enable_namespace_declaration": "synapse_properties.'synapse.commons.json.output.enableNSDeclarations'",
+  "mediation.synapse.build_valid_nc_name": "synapse_properties.'synapse.commons.json.buildValidNCNames'",
+  "mediation.synapse.enable_auto_primitive": "synapse_properties.'synapse.commons.json.output.autoPrimitive'",
+  "mediation.synapse.json_out_auto_array": "synapse_properties.'synapse.commons.json.output.jsonoutAutoArray'",
+
   "mediation.flow.statistics.enable": "synapse_properties.'mediation.flow.statistics.enable'",
   "mediation.flow.statistics.capture_all": "synapse_properties.'mediation.flow.statistics.collect.all'",
   "mediation.stat.tracer.collect_payloads": "synapse_properties.'mediation.flow.statistics.tracer.collect.payloads'",
@@ -30,8 +38,11 @@
   "transport.http.preserve_http_user_agent":"passthru_properties.'http.user.agent.preserve'",
   "transport.http.preserve_http_server_name": "passthru_properties.'http.server.preserve'",
   "transport.http.disable_connection_keepalive": "passthru_properties.'http.connection.disable.keepalive'",
+  "transport.http.enable_message_size_validation": "passthru_properties.'message.size.validation.enabled'",
   "transport.http.max_message_size_bytes": "passthru_properties.'valid.max.message.size.in.bytes'",
   "transport.http.max_open_connections": "passthru_properties.'max_open_connections'",
+  "transport.http.force_xml_validation": "passthru_properties.'force.xml.message.validation'",
+  "transport.http.force_json_validation": "passthru_properties.'force.json.message.validation'",
 
   "transport.http.listener.port": "transport.http.listener.parameter.port",
   "transport.http.listener.wsdl_epr_prefix":"transport.http.listener.parameter.WSDLEPRPrefix",
@@ -45,6 +56,8 @@
   "transport.http.sender.warn_on_http_500": "transport.http.sender.parameter.'warnOnHTTP500'",
   "transport.http.sender.proxy_host": "transport.http.sender.parameter.'http.proxyHost'",
   "transport.http.sender.proxy_port": "transport.http.sender.parameter.'http.proxyPort'",
+
+  "transport.http.sender.hostname_verifier": "transport.https.sender.parameter.'HostnameVerifier'",
 
   "transport.http.blocking_sender.enable_client_caching": "transport.http.blocking_sender.parameter.cacheHttpClient",
   "transport.http.blocking_sender.transfer_encoding": "transport.http.blocking_sender.parameter.Transfer-Encoding",
