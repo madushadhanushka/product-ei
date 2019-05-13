@@ -28,6 +28,9 @@
   "mediation.statistics.clean_interval" : "synapse_properties.'statistics.clean.interval'",
   "mediation.inbound.core_threads": "synapse_properties.'inbound.threads.core'",
   "mediation.inbound.max_threads": "synapse_properties.'inbound.threads.max'",
+  "mediation.internal_http_api_enable": "synapse_properties.'internal.http.api.enabled'",
+  "mediation.internal_http_api_port": "synapse_properties.'internal.http.api.port'",
+  "mediation.internal_https_api_port": "synapse_properties.'internal.https.api.port'",
 
   "transport.http.socket_timeout": "passthru_properties.'http.socket.timeout'",
   "transport.http.core_worker_pool_size": "passthru_properties.'worker_pool_size_core'",
