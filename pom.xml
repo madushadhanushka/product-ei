@@ -1907,6 +1907,16 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
+        <repository>
+            <id>elasticsearch-releases2</id>
+            <url>https://maven.wso2.org/nexus/content/repositories/orgwso2carbon-1388</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
     </repositories>
 
     <pluginRepositories>
